@@ -1,0 +1,200 @@
+.text
+main:
+add $r0, $r0, $r0 // nop to get things started
+
+addi $r1, $r0, 608 //shooter x
+addi $r2, $r0, 896 //shooter y
+
+addi $r3, $r0, 608 // laser x
+addi $r4, $r0, 832 // laser y
+
+addi $r5, $r0, 32  //invader 1 x
+addi $r6, $r0, 64  //invader 1 y
+
+addi $r7, $r0, 352 // invader 2 x
+addi $r8, $r0, 64  // invader 2 y
+
+addi $r9, $r0, 672 // invader 3 x
+addi $r10, $r0, 64 // invader 3 y
+
+addi $r11, $r0, 32    //left boundary
+addi $r12, $r0, 1152  //right boundary
+
+addi $r13, $r0, 1     // 1, for comparisons
+
+addi $r14, $r0, 0     // win
+addi $r15, $r15, 0    // lose
+
+addi $r16, $r0, 3     // invaders left
+
+addi $r17, $r0, 50000000  // cycles to stall
+
+addi $r18, $r0, 0     // cycle counter
+
+addi $r19, $r0, 0     // signifies right (1) or left (0) for invaders
+
+addi $r20, $r0, 0     // 1 if laser was shot
+
+addi $r26, $r0, 1216  // right boundary for shooter
+
+addi $r27, $r0, 798   // boundary that invaders cross to win
+
+addi $r28, $r0, 64    // keeps track of y position of invaders
+
+moveInvaderRight:
+addi $r19, $r0, 1   // r19 = 1 if we're moving right, 0 for left
+addi $r5, $r5, 16   // move invaders right
+addi $r7, $r7, 16
+addi $r9, $r9, 16
+bne $r20, $r13, 1	// move the laser up if it's been shot
+jal moveLaser       
+addi $r18, $r0, 0   // reset cycle counter to 0
+bne $r9, $r12, 1    // if invader 3 has hit right boundary, start going left, else keep going right
+j switchToLeft
+j stallThenRight
+
+stallThenRight:
+addi $r19, $r0, 1   // Might be redundant, but make sure this is set to 1 for right
+add $r0, $r0, $r0   // nop each cycle to stall
+addi $r18, $r18, 1  // increment cycle count
+bne $r17, $r18, 1   // if cycle count = max cycles, move invaders again. else, keep stalling
+j moveInvaderRight
+j stallThenRight
+
+moveInvaderLeft:
+addi $r19, $r0, 0   // 0 to indicate moving left
+addi $r5, $r5, -16  // move invaders left
+addi $r7, $r7, -16
+addi $r9, $r9, -16
+bne $r20, $r13, 1   // move laser up if it's been shot
+jal moveLaser       
+addi $r18, $r0, 0   // reset cycle counter to 0
+bne $r5, $r11, 1    // if invader 1 has hit left boundary, start going right, else keep going left
+j switchToRight
+j stallThenLeft
+
+stallThenLeft:
+addi $r19, $r0, 0   // 0 to indicate moving left
+add $r0, $r0, $r0   // nop to stall
+addi $r18, $r18, 1  // increment cycle count
+bne $r17, $r18, 1   // if cycle count = max cycles, move invaders again. else keep stalling
+j moveInvaderLeft
+j stallThenLeft
+
+switchToLeft:
+addi $r19, $r0, 0   // 0 to indicate moving left
+add $r0, $r0, $r0   // nop to stall
+addi $r18, $r18, 1  // increment cycle count
+bne $r17, $r18, 8   // if cycle count = max cycles, move invaders down. else keep stalling
+addi $r6, $r6, 32   // move invader 1 down 32
+addi $r8, $r8, 32   // move invader 2 down 32
+addi $r10, $r10, 32 // move invader 3 down 32
+addi $r28, $r28, 32 // move tracker down 32
+blt $r28, $r27, 1    // if invaders haven't reached bottom yet, skip next line
+addi $r15, $r0, 1   // you lose
+addi $r18, $r0, 0   // reset counter to 0
+j stallThenLeft     // start going left
+j switchToLeft      // if haven't stalled enough yet, loop
+
+switchToRight:
+addi $r19, $r0, 1   // 1 to indicate moving right
+add $r0, $r0, $r0   // nop to stall
+addi $r18, $r18, 1  // increment cycle count
+bne $r17, $r18, 8   // if cycle count = max cycles, move invaders down. else keep stalling
+addi $r6, $r6, 32   // move invader 1 down 32
+addi $r8, $r8, 32   // move invader 2 down 32
+addi $r10, $r10, 32 // move invader 3 down 32
+addi $r28, $r28, 32 // move tracker down 32
+blt $r28, $r27, 1    // if invaders haven't reached bottom yet, skip next line
+addi $r15, $r0, 1   // you lose
+addi $r18, $r0, 0   // reset counter to 0
+j stallThenRight    // start going right
+j switchToRight     // if haven't stalled enough yet, loop
+
+moveShooterRight:
+bne $r1, $r26, 1    // okay to move if haven't reached right boundary
+j dontMoveRight
+addi $r1, $r1, 32   // move the shooter right by 32
+bne $r20, $r0, 1    // if laser has been shot ($r20 = 1), don't move laser. otherwise, move to match shooter
+addi $r3, $r3, 32   // move laser to the right by 32
+dontMoveRight:
+bne $r19, $r13, 1   // if moving left, go to stallThenLeft. else go to stallThenRight
+j stallThenRight
+j stallThenLeft
+
+moveShooterLeft:
+bne $r1, $r11, 1
+j dontMoveLeft
+addi $r1, $r1, -32  // move the shooter left by 32
+bne $r20, $r0, 1    // if laser has been shot ($r20 = 1), don't move laser. otherwise, move to match shooter
+addi $r3, $r3, -32  // move laser to the left by 32
+dontMoveLeft:
+bne $r19, $r13, 1   // if moving left, go to stallThenLeft. else go to stallThenRight
+j stallThenRight
+j stallThenLeft
+
+shootLaser:
+addi $r20, $r0, 1   // set $r20 to 1 to indicate laser has been shot
+addi $r4, $r4, -64  // move laser up by 64
+bne $r19, $r13, 1   // if moving left, go to stallThenLeft. else go to stallThenRight
+j stallThenRight
+j stallThenLeft
+
+moveLaser:
+addi $r4, $r4, -64  // move laser up by 64
+bne $r4, $r0, 1     // if it's reached the top of the screen, reset it
+j resetLaser
+
+// if it's reached the row of invaders, check for x-intersects. otherwise, just return
+addi $r24, $r28, 128    // y coordinate of bottom of invaders
+blt $r4, $r28, 19       // laser already passed invaders -- skip
+blt $r24, $r4, 18      // laser hasn't reached bottom of invaders yet -- skip
+
+// already know left coordinates of invaders -- get right.
+addi $r21, $r5, 96
+addi $r22, $r7, 96
+addi $r23, $r9, 96
+
+// check if it hit the first invader
+blt $r3, $r5, 14      // if the laser is to the left of invader 1, didn't hit anything -- skip to the end
+blt $r21, $r3, 3     // right side of invader 1 is to the left of laser -- didn't hit
+ 					 // otherwise it did hit -- remove invader, subtract from total, and reset laser
+addi $r5, $r5, 10000 // this will put invader off screen
+addi $r16, $r16, -1  // subtract from total
+j resetLaser         // reset position
+
+// check if it hit the second invader
+blt $r3, $r7, 9      // if the laser is to the left of invader 2, didn't hit 2 or 3 -- skip to the end
+blt $r22, $r3, 3     // right side of invader 2 is to the left of the laser -- didn't hit
+ 					 // otherwise it did hit -- remove invader, subtract from total, and reset laser
+addi $r7, $r7, 10000 // this will put invader off screen
+addi $r16, $r16, -1  // subtract from total
+j resetLaser         // reset position
+
+// check if it hit the third invader
+blt $r3, $r9, 4      // if the laser is to the left of invader 3, didn't hit -- skip to the end
+blt $r23, $r3, 3      // right side of invader 3 is to the left of the laser -- didn't hit
+ 					 // otherwise it did hit -- remove invader, subtract from total, and reset laser
+addi $r9, $r9, 10000 // this will put invader off screen
+addi $r16, $r16, -1  // subtract from total
+j resetLaser         // reset position
+
+jr $r31              // return to function call
+
+resetLaser:
+addi $r4, $r0, 800  // move back to right above shooter
+add $r3, $r0, $r1   // same with x -- get from shooter
+addi $r20, $r0, 0   // laser hasn't been shot now
+bne $r16, $r0, 1    // if more than 0 invaders left, haven't won
+addi $r14, $r0, 1
+jr $31
+
+stop:
+add $r0, $r0, $r0
+j stop
+
+jal moveShooterRight  // these are just to get addresses
+jal moveShooterLeft
+jal shootLaser
+
+.data
