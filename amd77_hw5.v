@@ -16,8 +16,10 @@ module amd77_hw5(	inclock, resetn, customInstruction, buttonPressed, /*ps2_clock
 						debug_Wout, debug_branch, debug_nextPC,
 						debug_reset, debug_resetOrFlush, debug_branchPCout,
 						debug_reg0, */
-						debug_reg1, debug_reg2, debug_reg3, debug_reg4, debug_reg5, debug_reg6, debug_reg7, debug_reg8, debug_reg9, debug_reg10
-						/*debug_reg11, debug_reg12, debug_reg13, debug_reg14, debug_reg15, debug_reg16, debug_reg17, debug_reg18, debug_reg19, debug_reg20,
+						debug_reg1, debug_reg2, debug_reg3, debug_reg4, debug_reg5, debug_reg6, debug_reg7, debug_reg8, debug_reg9, debug_reg10,
+						/*debug_reg11, debug_reg12, debug_reg13, */
+						debug_reg14, debug_reg15 
+						/* , debug_reg16, debug_reg17, debug_reg18, debug_reg19, debug_reg20,
 						debug_reg21, debug_reg22, debug_reg23, debug_reg24, debug_reg25, debug_reg26, debug_reg27, debug_reg28, debug_reg29, debug_reg30, debug_reg31,
 						debug_ALUinA, debug_ALUinB, debug_MemIn,
 						debug_XMisSW, debug_XMisLW,
@@ -52,8 +54,8 @@ module amd77_hw5(	inclock, resetn, customInstruction, buttonPressed, /*ps2_clock
 	output debug_branch, debug_reset, debug_resetOrFlush, debug_ALU_lessThan, debug_ALU_notEqual;
 	output [31:0] debug_branchPCout;
 	output [31:0] debug_reg0;*/
-	output [31:0] debug_reg1, debug_reg2, debug_reg3, debug_reg4, debug_reg5, debug_reg6, debug_reg7, debug_reg8, debug_reg9, debug_reg10;
-	/*output [31:0] debug_reg11, debug_reg12, debug_reg13, debug_reg14, debug_reg15, debug_reg16, debug_reg17, debug_reg18, debug_reg19, debug_reg20;
+	output [31:0] debug_reg1, debug_reg2, debug_reg3, debug_reg4, debug_reg5, debug_reg6, debug_reg7, debug_reg8, debug_reg9, debug_reg10, debug_reg14, debug_reg15;
+	/*output [31:0] debug_reg11, debug_reg12, debug_reg13,  debug_reg16, debug_reg17, debug_reg18, debug_reg19, debug_reg20;
 	output [31:0] debug_reg21, debug_reg22, debug_reg23, debug_reg24, debug_reg25, debug_reg26, debug_reg27, debug_reg28, debug_reg29, debug_reg30, debug_reg31;
 	output [1:0] debug_ALUinA, debug_ALUinB;
 	output debug_MemIn;
@@ -109,8 +111,8 @@ module amd77_hw5(	inclock, resetn, customInstruction, buttonPressed, /*ps2_clock
 						debug_Wout, debug_branch, debug_nextPC,
 						debug_reset, debug_resetOrFlush, debug_branchPCout,
 						debug_reg0,*/
-						debug_reg1, debug_reg2, debug_reg3, debug_reg4, debug_reg5, debug_reg6, debug_reg7, debug_reg8, debug_reg9, debug_reg10
-						/*debug_reg11, debug_reg12, debug_reg13, debug_reg14, debug_reg15, debug_reg16, debug_reg17, debug_reg18, debug_reg19, debug_reg20,
+						debug_reg1, debug_reg2, debug_reg3, debug_reg4, debug_reg5, debug_reg6, debug_reg7, debug_reg8, debug_reg9, debug_reg10, debug_reg14, debug_reg15
+						/*debug_reg11, debug_reg12, debug_reg13, debug_reg16, debug_reg17, debug_reg18, debug_reg19, debug_reg20,
 						debug_reg21, debug_reg22, debug_reg23, debug_reg24, debug_reg25, debug_reg26, debug_reg27, debug_reg28, debug_reg29, debug_reg30, debug_reg31,
 						debug_ALUinA, debug_ALUinB, debug_MemIn,
 						debug_XMisSW, debug_XMisLW,
@@ -177,8 +179,8 @@ module processor(clock, reset, customInstruction, buttonPressed,
 						debug_Wout, debug_branch, debug_nextPC,
 						debug_reset, debug_resetOrFlush, debug_branchPCout,
 						debug_reg0, */
-						debug_reg1, debug_reg2, debug_reg3, debug_reg4, debug_reg5, debug_reg6, debug_reg7, debug_reg8, debug_reg9, debug_reg10
-						/*debug_reg11, debug_reg12, debug_reg13, debug_reg14, debug_reg15, debug_reg16, debug_reg17, debug_reg18, debug_reg19, debug_reg20,
+						debug_reg1, debug_reg2, debug_reg3, debug_reg4, debug_reg5, debug_reg6, debug_reg7, debug_reg8, debug_reg9, debug_reg10, debug_reg14, debug_reg15
+						/*debug_reg11, debug_reg12, debug_reg13, debug_reg16, debug_reg17, debug_reg18, debug_reg19, debug_reg20,
 						debug_reg21, debug_reg22, debug_reg23, debug_reg24, debug_reg25, debug_reg26, debug_reg27, debug_reg28, debug_reg29, debug_reg30, debug_reg31,
 						debug_ALUinA, debug_ALUinB, debug_MemIn,
 						debug_XMisSW, debug_XMisLW,
@@ -216,7 +218,7 @@ module processor(clock, reset, customInstruction, buttonPressed,
 	output debug_branch, debug_reset, debug_resetOrFlush, debug_ALU_lessThan, debug_ALU_notEqual;
 	output [31:0] debug_branchPCout;
 	output [31:0] debug_reg0,*/
-	output [31:0] debug_reg1, debug_reg2, debug_reg3, debug_reg4, debug_reg5, debug_reg6, debug_reg7, debug_reg8, debug_reg9, debug_reg10;
+	output [31:0] debug_reg1, debug_reg2, debug_reg3, debug_reg4, debug_reg5, debug_reg6, debug_reg7, debug_reg8, debug_reg9, debug_reg10, debug_reg14, debug_reg15;
 	/*output [31:0] debug_reg11, debug_reg12, debug_reg13, debug_reg14, debug_reg15, debug_reg16, debug_reg17, debug_reg18, debug_reg19, debug_reg20;
 	output [31:0] debug_reg21, debug_reg22, debug_reg23, debug_reg24, debug_reg25, debug_reg26, debug_reg27, debug_reg28, debug_reg29, debug_reg30, debug_reg31;
 	output [1:0] debug_ALUinA, debug_ALUinB;
@@ -243,14 +245,12 @@ module processor(clock, reset, customInstruction, buttonPressed,
 	output [4:0] debug_divisorShiftAmt5;*/
 	
 	// debugging -- to output, comment these out and uncomment the outputs above
-	wire [31:0] debug_word;
-	wire [11:0] debug_add;
 	wire [31:0] debug_PC, debug_inst, debug_FD_PCin, debug_FD_IRin, debug_FD_PCout, debug_FD_IRout,  debug_DX_PCin, debug_DX_Ain, debug_DX_Bin, debug_DX_IRin, debug_DX_PCout, debug_DX_Aout, debug_DX_Bout, debug_DX_IRout, debug_ALU_inA, debug_ALU_inB, debug_ALU_out, debug_XM_Oin, debug_XM_Bin, debug_XM_IRin, debug_XM_Oout, debug_XM_Bout, debug_XM_IRout, debug_MW_Oin, debug_MW_Din, debug_MW_IRin, debug_MW_Oout, debug_MW_Dout, debug_MW_IRout, debug_Wout, debug_nextPC;
 	wire [4:0] debug_ALU_shift, debug_ALU_select;
 	wire debug_branch, debug_reset, debug_resetOrFlush, debug_ALU_lessThan, debug_ALU_notEqual;
 	wire [31:0] debug_branchPCout;
 	wire [31:0] debug_reg0, debug_reg1, debug_reg2, debug_reg3, debug_reg4, debug_reg5, debug_reg6, debug_reg7, debug_reg8, debug_reg9, debug_reg10;
-	wire [31:0] debug_reg11, debug_reg12, debug_reg13, debug_reg14, debug_reg15, debug_reg16, debug_reg17, debug_reg18, debug_reg19, debug_reg20;
+	wire [31:0] debug_reg11, debug_reg12, debug_reg13, debug_reg16, debug_reg17, debug_reg18, debug_reg19, debug_reg20;
 	wire [31:0] debug_reg21, debug_reg22, debug_reg23, debug_reg24, debug_reg25, debug_reg26, debug_reg27, debug_reg28, debug_reg29, debug_reg30, debug_reg31;
 	wire [1:0] debug_ALUinA, debug_ALUinB;
 	wire debug_MemIn;
@@ -279,64 +279,121 @@ module processor(clock, reset, customInstruction, buttonPressed,
 	
 	// your processor here
 
-	//-----SET UP LATCHES AND REGISTERS-----//	
-	
-	wire [31:0] currentPC, nextPC;
-	wire [31:0] FD_PCin, FD_PCout, FD_IRin, FD_IRout;
-	wire [31:0] DX_PCin, DX_PCout, DX_IRin, DX_IRout, DX_Ain, DX_Aout, DX_Bin, DX_Bout;
-	wire [31:0] XM_PCin, XM_PCout, XM_IRin, XM_IRout, XM_Oin, XM_Oout, XM_Bin, XM_Bout;
-	wire [31:0] MW_PCin, MW_PCout, MW_IRin, MW_IRout, MW_Oin, MW_Oout, MW_Din, MW_Dout;
-	wire [31:0] PW_Pin, PW_Pout, PW_IRin, PW_IRout;
-	wire [31:0] status_in, status_out;
-	wire resetOrFlush, resetOrFlush_temp, resetOrFlush_DX;
-	wire branch;
-	wire multDiv_unitReady, resultReady, stall;
-	
-	
-	PC_latch PC_latch(nextPC, currentPC, ~clock, reset, ~resultReady & ~stall & ~buttonPressed);
-	FD_latch FD_latch(FD_PCin, FD_PCout, FD_IRin, FD_IRout, ~clock, resetOrFlush, ~resultReady & ~stall);	
-	DX_latch DX_latch(DX_PCin, DX_PCout, DX_IRin, DX_IRout, DX_Ain, DX_Aout, DX_Bin, DX_Bout, ~clock, reset, !resultReady);
-	XM_latch XM_latch(XM_PCin, XM_PCout, XM_IRin, XM_IRout, XM_Oin, XM_Oout, XM_Bin, XM_Bout, ~clock, reset, !resultReady);
-	MW_latch MW_latch(MW_PCin, MW_PCout, MW_IRin, MW_IRout, MW_Oin, MW_Oout, MW_Din, MW_Dout, ~clock, reset, !resultReady);
-	PW_latch PW_latch(PW_Pin, PW_Pout, PW_IRin, PW_IRout, ~clock, reset, ~unitInUse/*resultReady*/);
-	
-	
-	assign resetOrFlush_temp = reset | branch;
-	
-	// delay resetOrFlush half a cycle
-	dffe flush_delay(.d(resetOrFlush_temp), .clk(clock), .clrn(1'b1), .prn(1'b1), .ena(1'b1), .q(resetOrFlush));
-	dffe flush_delay_DX(.d(resetOrFlush_temp), .clk(~clock), .clrn(1'b1), .prn(1'b1), .ena(1'b1), .q(resetOrFlush_DX)); // I don't think I used this but I'm afraid to break it
+	//-----SET UP LATCHES AND REGISTERS-----//    
 
-	
-	// debugging	
-	assign debug_resetOrFlush = resetOrFlush;
-	assign debug_reset = reset;
-	assign debug_branch = branch;
-	assign debug_nextPC = nextPC;
-	
-	//-----END LATCHES-----//
-	
-	
-	//-----FETCH STAGE-----//
-	// add 1 to PC, output goes to FD_PCin
-	wire junk;
-	adder_full32bit PC_adder(currentPC, 32'b00000000000000000000000000000001, 1'b0, FD_PCin, junk);
-	
-	// set up output of instruction memory	
-	wire [31:0] imem_dataOut; // this is the output of the imem data, assigned at bottom of module		
-	
-	// set up all remaining inputs to FD
-	// FD_IRin is a mux to choose between imem_dataout and customInstruction
-	mux1 instrMux(imem_dataOut, customInstruction, buttonPressed, FD_IRin);
-	//assign FD_IRin = imem_dataOut;
-	
-	//fetch debug
-	assign debug_PC = currentPC;
-	assign debug_inst = imem_dataOut;
-	assign debug_FD_PCin = FD_PCin;
-	assign debug_FD_IRin = FD_IRin;
-	
-	//-----END FETCH-----//
+    
+
+    wire [31:0] currentPC, nextPC;
+
+    wire [31:0] FD_PCin, FD_PCout, FD_IRin, FD_IRout;
+
+    wire [31:0] DX_PCin, DX_PCout, DX_IRin, DX_IRout, DX_Ain, DX_Aout, DX_Bin, DX_Bout;
+
+    wire [31:0] XM_PCin, XM_PCout, XM_IRin, XM_IRout, XM_Oin, XM_Oout, XM_Bin, XM_Bout;
+
+    wire [31:0] MW_PCin, MW_PCout, MW_IRin, MW_IRout, MW_Oin, MW_Oout, MW_Din, MW_Dout;
+
+    wire [31:0] PW_Pin, PW_Pout, PW_IRin, PW_IRout;
+
+    wire [31:0] status_in, status_out;
+
+    wire resetOrFlush, resetOrFlush_temp, resetOrFlush_DX;
+
+    wire branch;
+
+    wire multDiv_unitReady, resultReady, stall;
+
+    
+
+    
+
+    PC_latch PC_latch(nextPC, currentPC, ~clock, reset, ~resultReady & ~stall & ~buttonPressed);
+
+    FD_latch FD_latch(FD_PCin, FD_PCout, FD_IRin, FD_IRout, ~clock, resetOrFlush, ~resultReady & ~stall);    
+
+    DX_latch DX_latch(DX_PCin, DX_PCout, DX_IRin, DX_IRout, DX_Ain, DX_Aout, DX_Bin, DX_Bout, ~clock, reset, !resultReady);
+
+    XM_latch XM_latch(XM_PCin, XM_PCout, XM_IRin, XM_IRout, XM_Oin, XM_Oout, XM_Bin, XM_Bout, ~clock, reset, !resultReady);
+
+    MW_latch MW_latch(MW_PCin, MW_PCout, MW_IRin, MW_IRout, MW_Oin, MW_Oout, MW_Din, MW_Dout, ~clock, reset, !resultReady);
+
+    PW_latch PW_latch(PW_Pin, PW_Pout, PW_IRin, PW_IRout, ~clock, reset, ~unitInUse/*resultReady*/);
+
+    
+
+    
+
+    assign resetOrFlush_temp = reset | branch;
+
+    
+
+    // delay resetOrFlush half a cycle
+
+    dffe flush_delay(.d(resetOrFlush_temp), .clk(clock), .clrn(1'b1), .prn(1'b1), .ena(1'b1), .q(resetOrFlush));
+
+    dffe flush_delay_DX(.d(resetOrFlush_temp), .clk(~clock), .clrn(1'b1), .prn(1'b1), .ena(1'b1), .q(resetOrFlush_DX)); // I don't think I used this but I'm afraid to break it
+
+
+    
+
+    // debugging    
+
+    assign debug_resetOrFlush = resetOrFlush;
+
+    assign debug_reset = reset;
+
+    assign debug_branch = branch;
+
+    assign debug_nextPC = nextPC;
+
+    
+
+    //-----END LATCHES-----//
+
+    
+
+    
+
+    //-----FETCH STAGE-----//
+
+    // add 1 to PC, output goes to FD_PCin
+
+    wire junk;
+
+    adder_full32bit PC_adder(currentPC, 32'b00000000000000000000000000000001, 1'b0, FD_PCin, junk);
+
+    
+
+    // set up output of instruction memory    
+
+    wire [31:0] imem_dataOut; // this is the output of the imem data, assigned at bottom of module        
+
+    
+
+    // set up all remaining inputs to FD
+
+    // FD_IRin is a mux to choose between imem_dataout and customInstruction
+
+    mux1 instrMux(imem_dataOut, customInstruction, buttonPressed, FD_IRin);
+
+    //assign FD_IRin = imem_dataOut;
+
+    
+
+    //fetch debug
+
+    assign debug_PC = currentPC;
+
+    assign debug_inst = imem_dataOut;
+
+    assign debug_FD_PCin = FD_PCin;
+
+    assign debug_FD_IRin = FD_IRin;
+
+    
+
+    //-----END FETCH-----//
+
 	
 	
 	

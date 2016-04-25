@@ -20,8 +20,8 @@ module u(u1X1, u1Y1, u1X2, u1Y2, u1X3, u1Y3, u1X4);
 	assign u1X2 = u1X1 + 32;
 	assign u1X3 = u1X1 + 64;
 	assign u1X4 = u1X1 + 96;
-	assign u1Y2 = u1Y1 + 96;
-	assign u1Y3 = u1Y1 + 64;
+	assign u1Y2 = u1Y1 + 128;
+	assign u1Y3 = u1Y1 + 96;
 endmodule 
 
 module g(gX1, gY1, gX2, gY2);

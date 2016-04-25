@@ -17,6 +17,11 @@ module amd77bpo5(
 	, debug_reg1, debug_reg2, debug_reg3, debug_reg4
 	// u
 	, debug_reg5, debug_reg6, debug_reg7, debug_reg8, debug_reg9, debug_reg10
+	// win & lose
+	, debug_reg14, debug_reg15
+	
+	// keys
+	, key_pressed
 	
 	// LCD
 	, lcd_data
@@ -45,7 +50,12 @@ module amd77bpo5(
 	// i
 	debug_reg1, debug_reg2, debug_reg3, debug_reg4
 	// u
-	, debug_reg5, debug_reg6, debug_reg7, debug_reg8, debug_reg9, debug_reg10;
+	, debug_reg5, debug_reg6, debug_reg7, debug_reg8, debug_reg9, debug_reg10
+	// win & lose
+	, debug_reg14, debug_reg15
+	;
+	
+	output key_pressed;
 	
 	spaceinvaders Dan(clk_in
 	, reset_SW0, reset_SW1, KEY3, KEY2, KEY1
@@ -57,6 +67,11 @@ module amd77bpo5(
 	, debug_reg1, debug_reg2, debug_reg3, debug_reg4
 	// u
 	, debug_reg5, debug_reg6, debug_reg7, debug_reg8, debug_reg9, debug_reg10
+	// win & lose
+	, debug_reg14, debug_reg15
+	
+	// keys
+	, key_pressed
 	);
 
 	output KEY3_out;
