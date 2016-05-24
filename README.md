@@ -1,5 +1,5 @@
 # SpaceInvaders
-I built an arcade game, SpaceInvaders, from scratch using a FPGA (Altera DE2-115).
+I built an arcade game, SpaceInvaders, from scratch using a FPGA (Altera DE2-115), along with my partner, Amanda Duffy, for ECE350: Digital Systems at Duke University.
 
 ![alt tag](https://github.com/Brendobrien/SpaceInvaders/blob/master/Monitor.JPG)
 
